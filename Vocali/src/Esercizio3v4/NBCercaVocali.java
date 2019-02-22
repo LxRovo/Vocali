@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
  */
 public class NBCercaVocali {
 
+    
+    public Semaphore Semaforo_1;
     /**
      * TIME_USER = costante che indica il tempo in millisecondi entro cui
      * l'utente deve rispondere
