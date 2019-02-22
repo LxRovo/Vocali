@@ -1,4 +1,4 @@
-package Esericizio3v4;
+package Esercizio3v4;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

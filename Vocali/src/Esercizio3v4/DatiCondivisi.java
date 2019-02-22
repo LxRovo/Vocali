@@ -1,4 +1,4 @@
-package Esericizio3v4;
+package Esercizio3v4;
 
 
 /**
@@ -82,5 +82,13 @@ public class DatiCondivisi {
     
     public char getVocale(int index) {
         return vocali.getVocale(index);
+    }
+
+    public void waitNum() {
+        
+    }
+    
+    public void signalNum() {
+        
     }
 }

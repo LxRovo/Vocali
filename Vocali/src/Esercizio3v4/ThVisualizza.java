@@ -1,4 +1,4 @@
-package Esericizio3v4;
+package Esercizio3v4;
 
 /**
  * La classe gestisce un thread che visualizza continuamento il contenuto dello schermo

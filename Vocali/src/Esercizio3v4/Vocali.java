@@ -1,4 +1,4 @@
-package Esericizio3v4;
+package Esercizio3v4;
 
 /**
  * Classe che memorizza il numero di volta che viene ripetuta ogni vocale
