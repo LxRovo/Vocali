@@ -1,147 +1,86 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Esericizio3v4;
 
+
 /**
+ * Classe che memorizza il numero di volta che viene ripetuta una vocale
  *
- * @author rovelli_andrea
- * @version 1.0
- *
- * @brief classe che permette la condivisione dei dati fra thread salvandone i
- * valori dati.
- *
+ * @author orsenigo_giacomo
  */
 public class DatiCondivisi {
 
-    private int countA, countE, countI, countO, countU;
-    
-    public int getCountA() {
-        return countA;
-    }
-
-    public void setCountA(int countA) {
-        this.countA = countA;
-    }
-
-    public int getCountE() {
-        return countE;
-    }
-
-    public void setCountE(int countE) {
-        this.countE = countE;
-    }
-
-    public int getCountI() {
-        return countI;
-    }
-
-    public void setCountI(int countI) {
-        this.countI = countI;
-    }
-
-    public int getCountO() {
-        return countO;
-    }
-
-    public void setCountO(int countO) {
-        this.countO = countO;
-    }
-
-    public int getCountU() {
-        return countU;
-    }
-
-    public void setCountU(int countU) {
-        this.countU = countU;
-    }
-
     /**
-     * @author rovelli_andrea
-     *
-     * attributo contenente il numero di volte si sono ripetute le varie vocali
-     *
+     * booleane che indicano se i thread sono in thTerminato o no
      */
-    private int numVocali[];
+    private final boolean[] thTerminato;
 
+    private Schermo schermo;
+        
+    private Vocali vocali;
+    
     /**
-     * @author rovelli_andrea
+     * @brief costruttore
      *
-     * @brief costruttore senza parametri, inizializza la dimensione del vettore
-     * numVocali a 5.
-     *
+     * Inizializza le vocali, lo schermo e il vettore che indica quali thread sono terminati
      */
     public DatiCondivisi() {
-        this.countA = 0;
-        this.countE = 0;
-        this.countI = 0;
-        this.countO = 0;
-        this.countU = 0;
-        this.numVocali = new int[5];
+        this.thTerminato = new boolean[Vocali.NUM_VOCALI];
+        for (int i = 0; i < thTerminato.length; i++) {
+            thTerminato[i] = false;
+        }
+        this.vocali = new Vocali();
+        this.schermo = new Schermo();
     }
 
-    /**
-     * @author rovelli_andrea
-     *
-     * @brief metodo che restituisce il vettore numVocali.
-     *
-     * @return il vettore numVocali.
-     */
-    public int[] getNumVocali() {
-        return numVocali;
+    public void resetDatiCondivisi() {
+        for (int i = 0; i < thTerminato.length; i++) {
+            thTerminato[i] = false;
+        }
+        this.vocali.reset();
+        this.schermo.reset();
     }
 
-    /**
-     * @author rovelli_andrea
-     *
-     * @brief metodo che permette di assegnare al vettore numVocali quante volte
-     * si è ripetuta una vocale nella frase.
-     *
-     * @param posizione indica la posizione nella quale inserire il valore,
-     * permette anche di capire di quale vocale sta contenendo il numero di
-     * ripetizioni.
-     *
-     * @param valore indica quante volte si è ripetuta una determinata vocale
-     * nella frase data.
-     */
-    public void setNumVocali(int posizione, int valore) {
-        this.numVocali[posizione] = valore;
+    public void scriviSuSchermo(String str) {
+        schermo.add(str);
     }
-
+    
     /**
-     * @author rovelli_andrea
+     * @brief controlla se i thread sono terminati
      *
-     * @brief metodo che restituisce la vocale che si è ripetuta più volte
-     * basandosi sulla posizione.
-     *
-     * @return la posizione della vocale che si è ripetuta più volte di tutte.
+     * @return true se tutti i thread sono terminati
      */
-    /*public int trovaMax() {
-        int massimo = numVocali[0];
-        int posizione = 0;
-        for (int i = 1; i <= numVocali.length - 1; i++) {
-            if (numVocali[i] > massimo) {
-                massimo = numVocali[i];
-                posizione = i;
+    public boolean sonoFinitiTutti() {
+        boolean ris = true;
+        for (int i = 0; i < 5; i++) {
+            if (!thTerminato[i]) {
+                ris = false;
             }
         }
-        return posizione;
-    }*/
-    public String trovaMax() {
-        String max = "0,";
-        int massimo = numVocali[0];
-        for (int i = 1; i < numVocali.length; i++) {
-            if (numVocali[i] > massimo) {
-                massimo = numVocali[i];
-                max = String.valueOf(i) + ",";
-            } else if (massimo == numVocali[i]) {
-                max += String.valueOf(i) + ",";
-            }
-        }
-        max += "fine";
-        return max;
+        return ris;
     }
 
+    /**
+     * @brief set terminato
+     *
+     * imposta come terminato il thread corrispondente alla vocale data
+     * @param vocale di cui impostare il thread come terminato
+     */
+    public void setFinito(char vocale) {
+        thTerminato[vocali.getIndex(vocale)] = true;
+    }
+
+    public String getStringSchermo() {
+        return schermo.toString();
+    }
+    
+    public char getVocaleMax() {
+        return vocali.getMax();
+    }
+
+    public void incNum(char vocale) {
+        vocali.incNum(vocale);
+    }
+    
+    public char getVocale(int index) {
+        return vocali.getVocale(index);
+    }
 }
