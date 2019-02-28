@@ -11,7 +11,7 @@ public class ThVocali extends Thread {
 
     /**
      * puntatore a un oggetto che contiene i dati condivisi
-     * 
+     *
      * @author Giacomo Orsenigo
      */
     private DatiCondivisi ptrDati;
@@ -80,10 +80,12 @@ public class ThVocali extends Thread {
                     yield();
                 }
             }
+
         } catch (InterruptedException ex) {
             System.out.println(ex);
         }
-        
+        ptrDati.getSemaforo(ptrDati.getConta()).release();
+        ptrDati.incConta();
         ptrDati.setFinito(vocale);
         // System.out.println("Thead " + vocale + " finito");
     }

@@ -1,5 +1,7 @@
 package Esercizio3v4;
 
+import java.util.concurrent.Semaphore;
+
 
 /**
  * Classe che memorizza il numero di volta che viene ripetuta una vocale
@@ -13,6 +15,12 @@ public class DatiCondivisi {
      */
     private final boolean[] thTerminato;
 
+    private final int numSemafori;
+    
+    private int conta;
+    
+    private Semaphore [] Semafori;
+    
     private Schermo schermo;
         
     private Vocali vocali;
@@ -27,8 +35,16 @@ public class DatiCondivisi {
         for (int i = 0; i < thTerminato.length; i++) {
             thTerminato[i] = false;
         }
+        this.conta = 0;
         this.vocali = new Vocali();
         this.schermo = new Schermo();
+        this.numSemafori = 6;
+        this.Semafori = new Semaphore [numSemafori];
+        
+        for(int i = 0; i < Semafori.length; i++){
+            Semafori[i] = new Semaphore(0);
+        }
+        
     }
 
     public void resetDatiCondivisi() {
@@ -37,6 +53,7 @@ public class DatiCondivisi {
         }
         this.vocali.reset();
         this.schermo.reset();
+        this.conta = 0;
     }
 
     public void scriviSuSchermo(String str) {
@@ -84,11 +101,25 @@ public class DatiCondivisi {
         return vocali.getVocale(index);
     }
 
-    public void waitNum() {
-        
+    public synchronized Semaphore getSemaforo(int index){
+        return Semafori[index];
+    } 
+
+    public synchronized int getNumSemafori() {
+        return numSemafori;
+    }
+
+    public synchronized int getConta() {
+        return conta;
     }
     
-    public void signalNum() {
-        
+        public synchronized void incConta() {
+        conta++;
     }
+    
+    
+    
+    
+    
+    
 }

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class NBCercaVocali {
 
     
-    public Semaphore Semaforo_1;
+    
     /**
      * TIME_USER = costante che indica il tempo in millisecondi entro cui
      * l'utente deve rispondere
@@ -80,11 +80,12 @@ public class NBCercaVocali {
                 vocInserita = leggiVocale();
 
                 //aspetto che tutti abbiano finito
-                for (ThVocali th : thVocali) {
-                    th.join();
+                
+                
+                for(int i = 0; i < datiCondivisi.getNumSemafori(); i++){
+                    datiCondivisi.getSemaforo(i).acquire();
                 }
-                // compreso il thred per la visualizzazione
-                vis.join();
+                
 
                 //controllo scelta utente
                 char vocVincente = datiCondivisi.getVocaleMax();
@@ -140,7 +141,7 @@ public class NBCercaVocali {
 
                 error = (ris != 'a' && ris != 'e' && ris != 'i' && ris != 'o' && ris != 'u');
                 if (error)
-                    System.out.print("Devi inseerire una vocale: ");
+                    System.out.print("Devi inserire una vocale: ");
             } while (error);
 
         } catch (IOException | InterruptedException ex) {
